@@ -38,3 +38,17 @@ bengalsub_auv/
 ├── README.md                           
 └── main.py                             
 ```
+## __Project Setup__:
+1. Clone the repository. [Repo](https://github.com/rakukanteki/RoboSub25.git)
+2. Create python virtual environment.
+    ```powershell
+    python -m venv hangor
+    ```
+3. Activate the virtual environment.
+    ```powershell
+    .\hangor\Scripts\Activate.ps1
+    ```
+4. Install the required modules and libraries. 
+    ```terminal
+    pip install -r requirments.txt
+    ```
