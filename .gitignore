@@ -96,3 +96,6 @@ hardware_configs/
 # Backup files
 *.bak
 *.backup
+
+# Object Detection Models
+*.pt
