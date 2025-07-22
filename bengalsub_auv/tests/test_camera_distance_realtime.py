@@ -3,8 +3,8 @@ import cv2
 import numpy as np
 from ultralytics import YOLO
 
-# Load YOLOv8 model (your trained fish detector)
-model = YOLO("D:\\Competition\\RoboSub'25\\RoboSub25\\bengalsub_auv\\auv\\vision\\models\\gate_model_test1.pt")  # Replace with your model
+# Load YOLOv8 model
+model = YOLO("D:\\Competition\\RoboSub'25\\RoboSub25\\bengalsub_auv\\auv\\vision\\models\\gate_model_test1.pt") 
 
 # Create DepthAI pipeline
 pipeline = dai.Pipeline()
