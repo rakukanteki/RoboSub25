@@ -1,0 +1,38 @@
+bar30_depth_sensor:
+  # Bar30 pressure/depth sensor configuration
+  i2c_address: 0x76
+  calibration:
+    offset: 0.0             # Depth offset calibration
+    scale_factor: 1.0       # Scale factor calibration
+  filtering:
+    enable_filter: true
+    filter_type: "low_pass"
+    cutoff_frequency: 2.0   # Hz
+    
+pixhawk_imu:
+  # Pixhawk internal IMU configuration
+  gyro_calibration: [0.0, 0.0, 0.0]      # X, Y, Z offsets
+  accel_calibration: [0.0, 0.0, 0.0]     # X, Y, Z offsets
+  mag_calibration: [0.0, 0.0, 0.0]       # X, Y, Z offsets
+  
+  # Sensor fusion parameters
+  fusion_mode: "complementary"            # or "kalman"
+  gyro_weight: 0.98
+  accel_weight: 0.02
+
+cameras:
+  oak_d_front:
+    # OAK-D specific configuration
+    color_resolution: "1080P"             # 4K, 1080P, 720P
+    mono_resolution: "720P"               # 800P, 720P, 400P
+    fps: 30
+    depth_enabled: true
+    confidence_threshold: 200
+    
+  usb_down:
+    # USB downward camera configuration
+    auto_exposure: true
+    brightness: 0
+    contrast: 0
+    saturation: 0
+    hue: 0

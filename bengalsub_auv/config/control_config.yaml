@@ -1,0 +1,34 @@
+movement_controller:
+  # Speed profiles for different mission phases
+  dive_speed: 400            # Diving speed
+  surface_speed: 500         # Surfacing speed
+  forward_speed: 500         # Forward movement speed
+  strafe_speed: 400          # Lateral movement speed
+  yaw_speed: 300            # Yaw rotation speed
+  
+  # Acceleration limits
+  max_acceleration: 100      # Maximum speed change per second
+  
+motion_planning:
+  # Path planning parameters
+  waypoint_tolerance: 0.5    # Waypoint arrival tolerance in meters
+  max_turn_rate: 30         # Maximum turn rate in degrees/second
+  lookahead_distance: 2.0    # Path following lookahead distance
+
+depth_control:
+  # Depth controller specific settings
+  max_descent_rate: 0.5     # Maximum descent rate m/s
+  max_ascent_rate: 0.3      # Maximum ascent rate m/s
+  depth_hold_band: 0.05     # Depth hold dead band in meters
+  
+heading_control:
+  # Heading controller specific settings
+  max_yaw_rate: 45          # Maximum yaw rate deg/s
+  heading_hold_band: 2      # Heading hold dead band in degrees
+  compass_filter: 0.1       # Compass filtering factor
+
+stabilization:
+  # Stabilization parameters
+  roll_limit: 15            # Maximum roll angle in degrees
+  pitch_limit: 15           # Maximum pitch angle in degrees
+  auto_level: true          # Enable auto-leveling

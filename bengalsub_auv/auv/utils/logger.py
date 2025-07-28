@@ -1,35 +1,41 @@
-"""
-Logging utility for AUV system
-Provides structured logging with timestamps and different levels
-"""
-
 import logging
-import sys
+import os
 from datetime import datetime
 
-def setup_logger(name, level=logging.INFO):
-    """
-    Setup logger with consistent formatting
-    """
-    logger = logging.getLogger(name)
-    logger.setLevel(level)
+class Logger:
+    def __init__(self, name):
+        self.logger = logging.getLogger(name)
+        self.logger.setLevel(logging.INFO)
+        
+        # Create logs directory
+        os.makedirs("data/logs", exist_ok=True)
+        
+        # Create file handler
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        log_file = f"data/logs/auv_mission_{timestamp}.log"
+        
+        file_handler = logging.FileHandler(log_file)
+        console_handler = logging.StreamHandler()
+        
+        # Create formatter
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        )
+        
+        file_handler.setFormatter(formatter)
+        console_handler.setFormatter(formatter)
+        
+        self.logger.addHandler(file_handler)
+        self.logger.addHandler(console_handler)
     
-    # Remove existing handlers to avoid duplicates
-    for handler in logger.handlers[:]:
-        logger.removeHandler(handler)
+    def info(self, message):
+        self.logger.info(message)
     
-    # Create console handler
-    handler = logging.StreamHandler(sys.stdout)
-    handler.setLevel(level)
+    def warning(self, message):
+        self.logger.warning(message)
     
-    # Create formatter
-    formatter = logging.Formatter(
-        '[%(asctime)s] [%(name)s] [%(levelname)s] %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
-    )
-    handler.setFormatter(formatter)
+    def error(self, message):
+        self.logger.error(message)
     
-    # Add handler to logger
-    logger.addHandler(handler)
-    
-    return logger
+    def debug(self, message):
+        self.logger.debug(message)

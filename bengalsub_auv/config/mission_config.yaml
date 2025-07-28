@@ -1,0 +1,59 @@
+automated_mission:
+  # Mission sequence configuration
+  steps:
+    1_dive:
+      name: "Dive to depth"
+      target_depth: 1.0
+      timeout: 30
+      descent_rate: 0.3
+      
+    2_stabilize:
+      name: "Stabilize position"
+      duration: 5
+      depth_hold: true
+      heading_hold: true
+      
+    3_forward:
+      name: "Move forward"
+      distance: 5.0
+      speed: 500
+      timeout: 60
+      maintain_depth: true
+      
+    4_maneuver:
+      name: "Hold and spin"
+      hold_duration: 3
+      spin_degrees: 720
+      spin_speed: 300
+      
+    5_surface:
+      name: "Surface and disarm"
+      target_depth: 0.2
+      timeout: 45
+      ascent_rate: 0.4
+
+emergency_procedures:
+  # Emergency response configuration
+  surface_on_failure: true
+  max_emergency_ascent_rate: 0.8
+  emergency_hold_depth: 0.5
+  comm_loss_timeout: 30
+  
+mission_variants:
+  # Different mission profiles
+  shallow_test:
+    target_depth: 0.5
+    forward_distance: 2.0
+    spin_degrees: 360
+    
+  deep_mission:
+    target_depth: 2.0
+    forward_distance: 10.0
+    spin_degrees: 1080    # 3 full rotations
+    
+  quick_test:
+    target_depth: 0.3
+    stabilize_duration: 2
+    forward_distance: 1.0
+    hold_duration: 1
+    spin_degrees: 180

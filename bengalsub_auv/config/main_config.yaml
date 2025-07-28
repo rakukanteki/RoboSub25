@@ -1,0 +1,115 @@
+pixhawk:
+  connection: "/dev/ttyACM1"  # Serial connection to Pixhawk
+  timeout: 10                # Connection timeout in seconds
+  baud_rate: 115200         # Serial baud rate
+  heartbeat_timeout: 5      # Heartbeat timeout in seconds
+
+mission:
+  # Mission parameters
+  target_depth: 1.0         # Target dive depth in meters
+  stabilize_duration: 5     # Stabilization time in seconds
+  forward_distance: 5.0     # Forward movement distance in meters
+  hold_duration: 3          # Hold position duration before spin
+  spin_degrees: 720         # Yaw rotation in degrees (720° = 2 full rotations)
+  surface_timeout: 45       # Maximum time to surface in seconds
+  
+  # Safety parameters
+  max_depth: 3.0           # Maximum allowed depth in meters
+  emergency_surface_speed: 600  # Emergency surface speed
+  mission_timeout: 300     # Total mission timeout in seconds
+
+cameras:
+  front_camera:
+    device_id: 0            # OAK-D front camera device
+    resolution: [1280, 720] # Recording resolution
+    fps: 30                 # Frames per second
+    codec: "XVID"          # Video codec
+    
+  down_camera:
+    device_id: 1            # USB downward camera device
+    resolution: [640, 480]  # Recording resolution
+    fps: 30                 # Frames per second
+    codec: "XVID"          # Video codec
+    
+  recording:
+    front_path: "data/recordings/front_camera/"
+    down_path: "data/recordings/down_camera/"
+    auto_start: true        # Start recording when armed
+
+control:
+  # Movement control parameters
+  speeds:
+    default: 500            # Default movement speed (0-1000)
+    slow: 300              # Slow movement speed
+    fast: 700              # Fast movement speed
+    yaw: 300               # Yaw rotation speed
+    
+  # Control tolerances
+  depth_tolerance: 0.1      # Depth control tolerance in meters
+  heading_tolerance: 5      # Heading control tolerance in degrees
+  position_tolerance: 1.0   # Position hold tolerance in meters
+  
+  # PID controller parameters (for future use)
+  pid_depth:
+    kp: 200.0              # Proportional gain
+    ki: 0.1                # Integral gain
+    kd: 50.0               # Derivative gain
+    
+  pid_heading:
+    kp: 5.0                # Proportional gain
+    ki: 0.01               # Integral gain
+    kd: 1.0                # Derivative gain
+
+sensors:
+  bar30_depth:
+    enabled: true
+    calibration_offset: 0.0  # Depth sensor calibration offset
+    max_depth: 10.0         # Maximum sensor depth rating
+    
+  imu:
+    enabled: true
+    calibration_file: "data/calibration/imu_cal.json"
+    
+  compass:
+    enabled: true
+    declination: 0.0        # Magnetic declination for your location
+
+thrusters:
+  # 8-thruster configuration: 4 vertical + 4 horizontal at 45°
+  configuration: "vectored_8"
+  
+  vertical_thrusters:
+    count: 4
+    positions: ["front_left", "front_right", "rear_left", "rear_right"]
+    
+  horizontal_thrusters:
+    count: 4
+    positions: ["front_left_45", "front_right_45", "rear_left_45", "rear_right_45"]
+    angle: 45               # Degrees from forward axis
+    
+  # Thruster mixing (for ArduSub)
+  mixing_enabled: true
+
+logging:
+  level: "INFO"             # DEBUG, INFO, WARNING, ERROR
+  log_path: "data/logs/"
+  max_log_size: "100MB"
+  backup_count: 5
+  
+safety:
+  # Safety parameters
+  enable_geofence: false    # Enable geographic boundaries
+  max_mission_time: 600     # Maximum mission time in seconds
+  battery_warning: 20       # Battery warning percentage
+  emergency_surface_depth: 0.5  # Emergency surface target depth
+  
+  # Fail-safe actions
+  communication_timeout: 10  # Seconds before comm fail-safe
+  failsafe_action: "surface" # Options: surface, hold, disarm
+
+network:
+  # Network configuration for surface communication
+  surface_ip: "192.168.2.1"    # Surface station IP
+  auv_ip: "192.168.2.100"      # AUV IP address
+  telemetry_port: 14550        # MAVLink telemetry port
+  video_port: 5600             # Video streaming port
